@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArashSocial | Bookmarks</title>
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+
+  <body>
+    <!-- Header/navbar -->
+    <%- include("./../partials/_header.ejs") %>
+
+    <main class="container my-8 flex gap-10">
+      <!-- Sidebar -->
+      <%- include("./../partials/_aside.ejs") %>
+
+      <!-- Content -->
+      <section id="bookmarks-container" class="flex flex-wrap gap-4">
+        <% if(posts.length > 0) { %> <% posts.forEach(item => { %>
+        <article class="feed-card shadow">
+          <!-- Feed header -->
+          <header>
+            <a
+              href="/pages/<%= item.post.user._id %>"
+              class="flex items-center gap-3"
+            >
+              <div>
+                <img
+                  src="http://localhost:4002/<%= item.post.user.profilePicture %>"
+                  alt="Profile card"
+                  class="w-8 rounded-full"
+                />
+              </div>
+              <div>
+                <p class="font-Poppins-Medium text-sm twitter-name">
+                  <%= item.post.user.name %> <% if(item.post.user.isVerified){
+                  %>
+                  <img src="/images/verify.png" class="w-4" alt="" />
+                  <% } %>
+                </p>
+                <p class="tweet-time">
+                  <span>@<%= item.post.user.username %></span>
+                </p>
+              </div>
+            </a>
+          </header>
+
+          <!-- Feed body -->
+          <main class="tweet-body">
+            <img
+              clas
+              src="http://localhost:4002/<%= item.post.media.path %>"
+              class="tweet-image object-cover"
+              alt=""
+            />
+          </main>
+
+          <!-- Feed footer -->
+          <footer class="px-4">
+            <!-- Like & Comment Share / Views & Save Button -->
+            <section class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <% if(item.post.hasLike) { %>
+                <form action="/posts/dislike" method="post">
+                  <input
+                    type="hidden"
+                    name="postID"
+                    value="<%= item.post._id %>"
+                  />
+                  <button type="submit" class="max-w-max">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="#FF474D"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                      />
+                    </svg>
+                  </button>
+                </form>
+                <% } else {%>
+                <form action="/posts/like" method="post">
+                  <input
+                    type="hidden"
+                    name="postID"
+                    value="<%= item.post._id %>"
+                  />
+                  <button type="submit" class="max-w-max">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                      />
+                    </svg>
+                  </button>
+                </form>
+                <% } %>
+                <button title="comment" class="max-w-max">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"
+                    />
+                  </svg>
+                </button>
+                
+                <form action="/posts/unsave" method="post">
+                  <input
+                    type="hidden"
+                    name="postID"
+                    value="<%= item.post._id %>"
+                  />
+                  <button class="max-w-max">
+                    <svg
+                      fill="#000"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5 7.8C5 6.11984 5 5.27976 5.32698 4.63803C5.6146 4.07354 6.07354 3.6146 6.63803 3.32698C7.27976 3 8.11984 3 9.8 3H14.2C15.8802 3 16.7202 3 17.362 3.32698C17.9265 3.6146 18.3854 4.07354 18.673 4.63803C19 5.27976 19 6.11984 19 7.8V21L12 17L5 21V7.8Z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </form>
+              </div>
+
+              <!-- Views, Save -->
+              <div class="flex items-center gap-2 justify-between">
+                <!-- Views -->
+                <div class="flex items-center gap-1 text-xs text-gray-700">
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-4 h-4"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="text-xs"> 29,428 </span>
+                </div>
+              </div>
+            </section>
+
+            <!-- Likes count -->
+            <div class="mt-1 flex items-center relative">
+              <div class="liked-by-wrapper relative block">
+                <span>
+                  <img src="./images/profile-5.jpg" class="likedBy" alt="" />
+                </span>
+                <span>
+                  <img
+                    src="./images/profile-6.jpg"
+                    class="likedBy left-3 z-10"
+                    alt=""
+                  />
+                </span>
+                <span> </span>
+                <img
+                  src="./images/profile-7.jpg"
+                  class="likedBy left-6 z-20"
+                  alt=""
+                />
+              </div>
+            </div>
+
+            <!-- User Infos (name, description) -->
+            <div class="mt-1 text-sm gap-1">
+              <span>
+                <strong> <%= item.post.user.name %> </strong>
+              </span>
+              <p class="text-gray-700"><%= item.post.description %></p>
+            </div>
+
+            <!-- View all comments -->
+            <div>
+              <button class="text-xs max-w-max text-gray-500">
+                <% if(item.post.comments.length > 0){ %>
+                  View all <%= item.post.comments.length %> comments ..
+                  <% }else{ %>
+                  No comments yet
+                  <% } %>
+              </button>
+            </div>
+          </footer>
+        </article>
+        <% }) %> <% }else{ %>
+          <!-- No Posts ... -->
+          <div class="its-empty">
+            <div class="font-Poppins-Bold text-lg text-center text-gray-900">
+              Aww, Nothing to show :(
+            </div>
+            <div>
+              <img
+                src="/images/notfound.png"
+                class="not-found-image"
+                alt=""
+              />
+            </div>
+          </div>
+        <% } %>
+      </section>
+
+      <section id="bookmark-content"></section>
+    </main>
+  </body>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+      if ("<%= locals.messages.error %>") {
+        swal({
+          title: "<%= locals.messages.error %>",
+          icon: "error",
+          buttons: "Try Again",
+        });
+      } else if ("<%= locals.messages.success %>") {
+        swal({
+          title: "<%= locals.messages.success %>",
+          icon: "success",
+          buttons: "Huraaa 😍",
+        });
+      }
+    
+  </script>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Edit</title>
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+
+  <body id="profile-edit-wrapper">
+    <div class="back-to-home">
+      <a href="/">Back to home </a>
+    </div>
+
+
+    <section id="profile-edit-form">
+      <header id="profile-edit-header">
+        <button class="profile-setting-tabs current-tab">Edit profile</button>
+        <button class="profile-setting-tabs">Change Password</button>
+        <button class="Delete-acc-btn">Delete Account</button>
+      </header>
+
+    <form id="editP" action="/users/profile-picture" method="post" enctype="multipart/form-data">
+      <main id="profile-edit-main">
+        <!-- Profile Picture -->
+        <section id="edit-profile-picture-card">
+          <div
+            id="edit-profile-picture"
+            class="w-18 h-18 rounded-full overflow-hidden"
+          >
+            <img
+              src="http://localhost:4002/<%= user.profilePicture %>"
+              alt="Profile"
+              class="object-cover"
+            />
+          </div>
+
+          <span id="edit-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-4 h-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+              />
+            </svg>
+            <input
+            name="profile"
+              type="file"
+              name="profilePicture"
+              id="profile-picture"
+              style="opacity: 0; position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; cursor: pointer;"
+            />
+          </span>
+        </section>
+
+        <!-- Edit Profile Content/inputs -->
+        <section id="edit-profile-content">
+          <section id="edit-profile-container">
+            <!-- Name Input -->
+            <article class="edit-profile_input-card">
+              <label for="profile-fullName" class="text-xs"> Full name </label>
+              <div class="profile-edit-input-card">
+                <input
+                required
+                     name="name"
+                     value="<%= user.name %>"
+                  class="profile-edit-input"
+                  id="profile-fullName"
+                  type="text"
+                />
+              </div>
+            </article>
+
+            <!-- Username Input -->
+            <article class="edit-profile_input-card">
+              <label for="profile-username" class="text-xs"> Username </label>
+              <div class="profile-edit-input-card">
+                <input
+                required
+                name="username"
+                     value="<%= user.username %>"
+                  class="profile-edit-input"
+                  id="profile-username"
+                  type="text"
+                />
+              </div>
+            </article>
+
+            <!-- Email Input -->
+            <article class="edit-profile_input-card">
+              <label for="profile-email" class="text-xs"> Email address </label>
+              <div class="profile-edit-input-card">
+                <input
+                required
+                name="email"
+                     value="<%= user.email %>"
+                  class="profile-edit-input"
+                  id="profile-email"
+                  type="text"
+                />
+              </div>
+            </article>
+
+            <!-- bio Input -->
+            <article class="edit-profile_input-card">
+              <label for="profile-password" class="text-xs"> bio </label>
+              <div class="profile-edit-input-card">
+                <input
+                required
+                name="bio"
+                value="<%= user.bio %>"
+                  class="profile-edit-input"
+                  id="profile-pic"
+                  type="text"
+                />
+              </div>
+            </article>
+
+            
+          </section>
+
+          <div class="flex" id="edit-porile-button-card">
+            <button id="edit-profile-button">Save changes</button>
+          </div>
+        </section>
+      </main>
+    </form>
+    <!-- change password form  -->
+    <form id="changePassword" style="display: none;" action="/users/changePass" method="post">
+  
+    <main id="profile-edit-main" style="justify-content: center !important; ">
+  
+      <!-- Edit Profile Content/inputs -->
+      <section id="edit-profile-content">
+        <section id="edit-profile-container">
+          <!-- old pass Input -->
+          <article class="edit-profile_input-card">
+            <label for="profile-fullName" class="text-xs"> Old Password </label>
+            <div class="profile-edit-input-card">
+              <input
+              required
+                   name="oldpassword"
+                class="profile-edit-input"
+                id="profile-oldpassword"
+                placeholder="Enter your old password"
+                type="text"
+              />
+            </div>
+          </article>
+  
+          <!-- new pass Input -->
+          <article class="edit-profile_input-card">
+            <label for="profile-username" class="text-xs"> New Password </label>
+            <div class="profile-edit-input-card">
+              <input
+              required
+              name="password"
+                class="profile-edit-input"
+                id="profile-password"
+                placeholder="Enter your new password"
+                type="text"
+              />
+            </div>
+          </article>
+  
+          <!-- confirm new pass Input -->
+          <article class="edit-profile_input-card">
+            <label for="profile-email" class="text-xs"> Confirm New Password </label>
+            <div class="profile-edit-input-card">
+              <input
+              required
+              name="confirmpassword"
+                class="profile-edit-input"
+                id="profile-confirmpassword"
+                placeholder="Confirm your new password"
+                type="text"
+              />
+            </div>
+          </article>
+  
+          <!-- OTP Input -->
+          <article class="edit-profile_input-card">
+            <label for="profile-password" class="text-xs"> OTP code </label>
+            <div class="profile-edit-input-card">
+              <input
+              required
+              name="OTP"
+                class="profile-edit-input"
+                id="profile-pic"
+                type="text"
+                maxlength="4"
+                placeholder="Enter the OTP code that you received"
+                style="text-align: center;"
+              />
+            </div>
+          </article>
+  
+          
+        </section>
+  
+        <div class="flex" id="edit-porile-button-card" style="justify-content: center !important; ">
+          <button id="edit-profile-button">change Password</button>
+        </div>
+      </section>
+    </main>
+  </section>
+  </form>
+  <!-- change password form  -->
+    <form id="changePassword" style="display: none;" action="/users/changePass" method="post">
+  
+    <main id="profile-edit-main" style="justify-content: center !important; ">
+  
+      <!-- Edit Profile Content/inputs -->
+      <section id="edit-profile-content">
+        <section id="edit-profile-container">
+          <!-- old pass Input -->
+          <article class="edit-profile_input-card">
+            <label for="profile-fullName" class="text-xs"> Old Password </label>
+            <div class="profile-edit-input-card">
+              <input
+              required
+                   name="oldpassword"
+                class="profile-edit-input"
+                id="profile-oldpassword"
+                placeholder="Enter your old password"
+                type="text"
+              />
+            </div>
+          </article>
+  
+          <!-- new pass Input -->
+          <article class="edit-profile_input-card">
+            <label for="profile-username" class="text-xs"> New Password </label>
+            <div class="profile-edit-input-card">
+              <input
+              required
+              name="password"
+                class="profile-edit-input"
+                id="profile-password"
+                placeholder="Enter your new password"
+                type="text"
+              />
+            </div>
+          </article>
+  
+          <!-- confirm new pass Input -->
+          <article class="edit-profile_input-card">
+            <label for="profile-email" class="text-xs"> Confirm New Password </label>
+            <div class="profile-edit-input-card">
+              <input
+              required
+              name="confirmpassword"
+                class="profile-edit-input"
+                id="profile-confirmpassword"
+                placeholder="Confirm your new password"
+                type="text"
+              />
+            </div>
+          </article>
+  
+          
+        </section>
+  
+        <div class="flex" id="edit-porile-button-card" style="justify-content: center !important; ">
+          <button id="edit-profile-button">change Password</button>
+        </div>
+      </section>
+    </main>
+  </section>
+  </form>
+  </section>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+      if ("<%= locals.messages.error %>") {
+        swal({
+          icon: "error",
+          title: "<%= locals.messages.error %>",
+          buttons: "Try Again"
+        });
+      } else if ("<%= locals.messages.success %>") {
+        swal({
+          icon: "success",
+          title: "<%= locals.messages.success %>",
+          buttons: "✅"
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const tabs = document.querySelectorAll(".profile-setting-tabs");
+        const forms = document.querySelectorAll("form");
+
+        tabs.forEach((tab, index) => {
+          tab.addEventListener("click", () => {
+            tabs.forEach((tab) => tab.classList.remove("current-tab"));
+            tab.classList.add("current-tab");
+
+            forms.forEach((form) => (form.style.display = "none"));
+            forms[index].style.display = "block";
+          });
+        });
+
+        const Deleteacc = document.querySelector(".Delete-acc-btn");
+        Deleteacc.addEventListener("click", () => {
+          swal({
+            icon: "warning",
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this account!",
+            buttons: true,
+            dangerMode: true,
+          }).then((willDelete) => {
+            if (willDelete) {
+              window.location.href = "/users/delete-account";
+            }
+          });
+      });
+        });
+
+    </script>
+  </body>
+</html>
