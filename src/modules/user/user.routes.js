@@ -15,7 +15,7 @@ router.post(
   userController.updateProfile
 );
 
-router.route("update-password").post(auth, userController.updatePassword);
+router.route("/update-password").post(auth, userController.updatePassword);
 
 router.route("/delete-account").get(auth, userController.deleteAccount);
 
