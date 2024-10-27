@@ -6,7 +6,7 @@ const likeModel = require("../../models/Like");
 const saveModel = require("../../models/Save");
 const followModel = require("../../models/follow");
 const fs = require("fs");
-const { updateProfileValidationSchema } = require("./user.validators");
+const { updateProfileValidationSchema, updatePasswordValidationSchema } = require("./user.validators");
 
 exports.showPageEditView = async (req, res) => {
   const user = await UserModel.findOne({ _id: req.user._id }).lean();
@@ -75,7 +75,34 @@ exports.updateProfile = async (req, res, next) => {
 
 exports.updatePassword = async (req, res, next) => {
   try{
-    
+    const userID = req.user._id;
+
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+
+    await updatePasswordValidationSchema.validate( { oldPassword, newPassword, confirmPassword }, { abortEarly: true });
+
+    const user = await UserModel.findOne({ _id: userID});
+
+    if(!user){
+      req.flash("error", "User not found");
+      return res.redirect("back");
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+
+    if(!isMatch){
+      req.flash("error", "Old password is incorrect");
+      return res.redirect("back");
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await UserModel.updateOne({ _id: userID }, { password: hashedPassword });
+
+    req.flash("success", "Password Updated Successfully");
+
+    return res.redirect("back");
+
   }catch(err){
     next(err)
   }
