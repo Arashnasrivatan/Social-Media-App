@@ -17,3 +17,20 @@ exports.updateProfileValidationSchema = yup.object({
     .required("name is required"),
   bio: yup.string().optional()
 });
+
+
+exports.updatePasswordValidationSchema = yup.object({
+  oldPassword: yup
+    .string()
+    .min(8, "Password must be at least 8 chars long")
+    .required("old Password is required"),
+  newPassword: yup
+    .string()
+    .min(8, "Password must be at least 8 chars long")
+    .required("new Password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("newPassword"), null], "Passwords must match")
+    .required("confirm Password is required")
+});
+
