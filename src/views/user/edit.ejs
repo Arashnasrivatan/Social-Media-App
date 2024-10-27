@@ -134,7 +134,7 @@
       </main>
     </form>
     <!-- change password form  -->
-    <form id="changePassword" style="display: none;" action="/users/changePass" method="post">
+    <form id="changePassword" style="display: none;" action="/users/update-password" method="POST">
   
     <main id="profile-edit-main" style="justify-content: center !important; ">
   
@@ -147,7 +147,7 @@
             <div class="profile-edit-input-card">
               <input
               required
-                   name="oldpassword"
+                   name="oldPassword"
                 class="profile-edit-input"
                 id="profile-oldpassword"
                 placeholder="Enter your old password"
@@ -162,7 +162,7 @@
             <div class="profile-edit-input-card">
               <input
               required
-              name="password"
+              name="newPassword"
                 class="profile-edit-input"
                 id="profile-password"
                 placeholder="Enter your new password"
@@ -170,6 +170,7 @@
               />
             </div>
           </article>
+
   
           <!-- confirm new pass Input -->
           <article class="edit-profile_input-card">
@@ -177,28 +178,11 @@
             <div class="profile-edit-input-card">
               <input
               required
-              name="confirmpassword"
+              name="confirmPassword"
                 class="profile-edit-input"
                 id="profile-confirmpassword"
                 placeholder="Confirm your new password"
                 type="text"
-              />
-            </div>
-          </article>
-  
-          <!-- OTP Input -->
-          <article class="edit-profile_input-card">
-            <label for="profile-password" class="text-xs"> OTP code </label>
-            <div class="profile-edit-input-card">
-              <input
-              required
-              name="OTP"
-                class="profile-edit-input"
-                id="profile-pic"
-                type="text"
-                maxlength="4"
-                placeholder="Enter the OTP code that you received"
-                style="text-align: center;"
               />
             </div>
           </article>
@@ -213,67 +197,8 @@
     </main>
   </section>
   </form>
-  <!-- change password form  -->
-    <form id="changePassword" style="display: none;" action="/users/changePass" method="post">
   
-    <main id="profile-edit-main" style="justify-content: center !important; ">
-  
-      <!-- Edit Profile Content/inputs -->
-      <section id="edit-profile-content">
-        <section id="edit-profile-container">
-          <!-- old pass Input -->
-          <article class="edit-profile_input-card">
-            <label for="profile-fullName" class="text-xs"> Old Password </label>
-            <div class="profile-edit-input-card">
-              <input
-              required
-                   name="oldpassword"
-                class="profile-edit-input"
-                id="profile-oldpassword"
-                placeholder="Enter your old password"
-                type="text"
-              />
-            </div>
-          </article>
-  
-          <!-- new pass Input -->
-          <article class="edit-profile_input-card">
-            <label for="profile-username" class="text-xs"> New Password </label>
-            <div class="profile-edit-input-card">
-              <input
-              required
-              name="password"
-                class="profile-edit-input"
-                id="profile-password"
-                placeholder="Enter your new password"
-                type="text"
-              />
-            </div>
-          </article>
-  
-          <!-- confirm new pass Input -->
-          <article class="edit-profile_input-card">
-            <label for="profile-email" class="text-xs"> Confirm New Password </label>
-            <div class="profile-edit-input-card">
-              <input
-              required
-              name="confirmpassword"
-                class="profile-edit-input"
-                id="profile-confirmpassword"
-                placeholder="Confirm your new password"
-                type="text"
-              />
-            </div>
-          </article>
-  
-          
-        </section>
-  
-        <div class="flex" id="edit-porile-button-card" style="justify-content: center !important; ">
-          <button id="edit-profile-button">change Password</button>
-        </div>
-      </section>
-    </main>
+
   </section>
   </form>
   </section>
